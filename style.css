@@ -1,0 +1,13 @@
+body{
+    background-color: rgb(133, 171, 237);
+}
+
+main {
+    display: grid;
+    padding-top: 5% ;
+}
+h1 {
+    color: ghostwhite;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
