@@ -4,8 +4,9 @@
 const version = "v10";
 const cacheName = `myapp-${version}`;
 const filesToCache = [
-    "/index.html",
-    "/style.css",
+    "index.html",
+    "style.css",
+    "main.js"
 ];
 
 // When installing the service worker,
@@ -58,14 +59,13 @@ self.addEventListener("activate", (e) => {
 });
 
 // // Fetch XKCD daily
-// self.addEventListener("periodicsync", (event) => {
-//     if (event.tag === "get-latest-comic") {
-//         event.waitUntil(fetchAndCacheLatestComic())
-//     }
-// });
+self.addEventListener("periodicsync", (event) => {
+    if (event.tag === "get-latest-comic") {
+        event.waitUntil(fetchAndCacheLatestComic())
+    }
+});
 
-// async function fetchAndCacheLatestComic() {
-//     const comicData = await fetch("https://corsproxy.io/?" + encodeURIComponent("https://xkcd.com/info.0.json")).then(r => r.json());
-//     self.dispatchEvent(new FetchEvent("https://corsproxy.io/?" + encodeURIComponent(comicData.img)));
-//     return comicData;
-// }
+async function fetchAndCacheLatestComic() {
+    const comicData = await fetch("https://my.meteoblue.com/packages/basic-1h_basic-day?apikey=NKEu72fl3RBGYLHT&lat=50.5012&lon=2.69708&asl=27&format=json").then(r => r.json());
+    return comicData;
+}

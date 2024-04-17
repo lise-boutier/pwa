@@ -10,11 +10,26 @@
     <script>
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker.register("sw.js");
+            navigator.serviceWorker.ready.then((registration) => {
+                console.log(registration)
+                // Not available under Firefox
+                if ("periodicSync" in registration) {
+                    registration.periodicSync.getTags().then((tags) => {
+                        if (!tags.includes("get-latest-comic")) {
+                            registration.periodicSync.register("get-latest-comic", {
+                                minInterval: 24 * 60 * 60 * 1000
+                            }).then(() => { console.info("Periodic sync registered!"); })
+                            .catch((e) => { console.warn(e); });
+                        }
+                    })
+                }
+            })
         }
     </script>
+    <script defer src="main.js"></script>
 </head>
 <body>
-   <main>
+   <main id="weather">
        <h1>Météo du jour</h1>
    </main>
 </body>

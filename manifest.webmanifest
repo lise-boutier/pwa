@@ -1,18 +1,26 @@
 {
-    "name": "progressive web app",
-    "short_name": "PWA",
-    "start_url": "/pwa",
-    "description" : "test pour cours de progressive web app",
-
-    "icons": [
-      {
-        "src": "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
-        "type": "image/png",
-        "sizes": "512x512"
-      }
-    ],
-    "theme_color": "#eb5252",
-    "background_color": "#000000",
-    "display": "fullscreen"
-
+  "name": "progressive web app",
+  "short_name": "PWA",
+  "start_url": "/pwa",
+  "description": "test pour cours de progressive web app",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "theme_color": "#eb5252",
+  "background_color": "#000000",
+  "display": "fullscreen",
+  "dir": "ltr",
+  "lang": "fr",
+  "orientation": "portrait-primary",
+  "display_override": [
+    "window-controls-overlay",
+    "browser"
+  ],
+  "categories": [
+    "weather"
+  ]
 }
