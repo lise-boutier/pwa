@@ -66,6 +66,33 @@ self.addEventListener("periodicsync", (event) => {
 });
 
 async function fetchAndCacheLatestComic() {
-    const comicData = await fetch("https://my.meteoblue.com/packages/basic-1h_basic-day?apikey=NKEu72fl3RBGYLHT&lat=50.5012&lon=2.69708&asl=27&format=json").then(r => r.json());
-    return comicData;
+    const weatherData = await fetch("https://my.meteoblue.com/packages/basic-1h_basic-day?apikey=NKEu72fl3RBGYLHT&lat=50.5012&lon=2.69708&asl=27&format=json").then(r => r.json());
+    return weatherData;
 }
+
+self.addEventListener('fetch', function(e) {
+    console.log('[ServiceWorker] Fetch', e.request.url);
+    var dataUrl = 'https://my.meteoblue.com/packages/basic-1h_basic-day?apikey=NKEu72fl3RBGYLHT&lat=50.5012&lon=2.69708&asl=27&format=json';
+    if (e.request.url.indexOf(dataUrl) === 0) {
+      e.respondWith(
+        fetch(e.request)
+          .then(function(response) {
+            return caches.open(dataCacheName).then(function(cache) {
+              cache.put(e.request.url, response.clone());
+              console.log('[ServiceWorker] Fetched&Cached Data');
+              return response;
+            });
+          })
+      );
+    } else {
+      e.respondWith(
+        caches.match(e.request).then(function(response) {
+          return response || fetch(e.request);
+        })
+      );
+    }
+  });
+
+
+
+        
